@@ -4,6 +4,7 @@ const logger = require("./utils/logger.js");
 const morgan = require("morgan");
 const dbConnect = require("./config/dbConnect.config.js")
 const userRoutes = require("./routes/user.routes.js")
+const projectRoutes = require("./routes/project.routes.js")
 const cookieParser = require("cookie-parser")
 const cors = require("cors");
 dbConnect();
@@ -34,6 +35,7 @@ app.use(
 );
 
 app.use("/api/users", userRoutes);
+app.use("/api/project", projectRoutes);
 
 
 

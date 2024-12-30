@@ -18,3 +18,13 @@ exports.createUser = async ({
     });
     return user;
 }
+
+
+exports.getAllUsers = async ({userId}) => {
+    const users = await User.find({
+        _id: {
+            $ne: userId
+        }
+    })
+    return users;
+}

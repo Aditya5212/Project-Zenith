@@ -1,5 +1,5 @@
 const User = require("../models/user.model.js");
-const {createUser} = require("../services/user.service.js");
+const {createUser, getAllUsers} = require("../services/user.service.js");
 const {validationResult} = require("express-validator");
 const redisClient = require("../services/redis.service.js");
 
@@ -80,6 +80,22 @@ exports.logoutController = async (req, res) => {
         res.status(400).json(
             {
                 message: "Error logging out",
+                error: error.message
+            }
+        );
+    }
+}
+
+exports.getAllUsersController = async (req, res) => {
+    try{
+        const loggedInUser = await User.findOne({email: req.user.email});
+        const userId = loggedInUser._id;
+        const allUsers = await getAllUsers({userId});
+        return res.status(200).json(allUsers);
+    }catch(error){
+        res.status(400).json(
+            {
+                message: "Error fetching users",
                 error: error.message
             }
         );

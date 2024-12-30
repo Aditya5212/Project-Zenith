@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const redisClient = require("../services/redis.service");
 exports.authUser = async(req,res,next)=>{
     try {
-        const token = req.cookies.token || req.headers.Authorization.split(" ")[1]; //replace("Bearer ", "")
+        const token = req.cookies.token || req.headers.authorization.split(" ")[1]; //replace("Bearer ", "")
         if (!token){
             return res.status(401).json({ error: "No token, authorization denied" });
         } 
